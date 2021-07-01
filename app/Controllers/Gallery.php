@@ -183,8 +183,13 @@ class Gallery extends BaseController
 			$namaSampul = $fileSampul->getRandomName();
 			//pindah gambar ke folder img
 			$fileSampul->move('img', $namaSampul);
-			//hapus file lama
-			unlink('img/' . $this->request->getVar('sampulLama'));
+			//cari nama gambar
+		    	$gallery = $this->galleryModel->find($id);
+    			//jika file gambar default
+		    	if ($gallery['sampul'] != 'default.jpg') {
+			    //hapus gambar lama
+			    unlink('img/' . $this->request->getVar('sampulLama'));
+		    	}
 		}
 
 		$slug = url_title($this->request->getVar('nama_tempat'), '-', 'true');
